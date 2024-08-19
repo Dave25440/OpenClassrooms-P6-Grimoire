@@ -45,6 +45,12 @@ app.put("/api/books/:id", (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 });
 
+app.delete("/api/books/:id", (req, res, next) => {
+  Book.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: "Livre supprimé !" }))
+    .catch((error) => res.status(400).json({ error }));
+});
+
 app.get("/api/books/:id", (req, res, next) => {
   Book.findOne({ _id: req.params.id })
     .then((book) => res.status(200).json(book))

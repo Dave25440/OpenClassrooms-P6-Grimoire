@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire/issues"
   },
-  "homepage": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire#readme"
+  "homepage": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }

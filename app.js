@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const Book = require("./models/book");
+
 mongoose
   .connect(
     "mongodb+srv://dave25440:grimoire@cluster0.t47em.mongodb.net/grimoire?retryWrites=true&w=majority&appName=Cluster0",
@@ -27,10 +29,14 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.post("/api/books", (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: "Objet créé !"
+  delete req.body._id;
+  const book = new Book({
+    ...req.body
   });
+  book
+    .save()
+    .then(() => res.status(201).json({ message: "Livre enregistré !" }))
+    .catch((error) => res.status(400).json({ error }));
 });
 
 app.get("/api/books", (req, res, next) => {

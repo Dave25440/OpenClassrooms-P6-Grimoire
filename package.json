@@ -1,0 +1,19 @@
+{
+  "name": "mon-vieux-grimoire-backend",
+  "version": "1.0.0",
+  "description": "Développez le back-end d'un site de notation de livres",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dave25440/OpenClassrooms-P6-Grimoire.git"
+  },
+  "author": "David Horès",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire/issues"
+  },
+  "homepage": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire#readme"
+}

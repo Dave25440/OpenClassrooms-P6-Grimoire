@@ -11,12 +11,8 @@ exports.createBook = (req, res, next) => {
   });
   book
     .save()
-    .then(() => {
-      res.status(201).json({ message: "Livre enregistré !" });
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
+    .then(() => res.status(201).json({ message: "Livre enregistré !" }))
+    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyBook = (req, res, next) => {

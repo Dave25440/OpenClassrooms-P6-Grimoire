@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Dave25440/OpenClassrooms-P6-Grimoire#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "mongoose": "^8.5.3",
     "mongoose-unique-validator": "^5.0.1"

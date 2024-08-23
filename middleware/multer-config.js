@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const sharp = require("sharp");
 
 const storage = multer.memoryStorage();
@@ -12,6 +13,11 @@ exports.convert = async (req, res, next) => {
   }
 
   const destination = path.join(__dirname, "../images");
+
+  if (!fs.existsSync(destination)) {
+    fs.mkdirSync(destination, { recursive: true });
+  }
+
   const fileName =
     req.file.originalname
       .split(" ")
@@ -21,12 +27,13 @@ exports.convert = async (req, res, next) => {
       .join(".") +
     Date.now() +
     ".webp";
+  const filePath = path.join(destination, fileName);
 
   try {
     await sharp(req.file.buffer)
       .resize(463)
       .webp({ quality: 75 })
-      .toFile(destination + fileName);
+      .toFile(filePath);
 
     req.file.filename = fileName;
     next();

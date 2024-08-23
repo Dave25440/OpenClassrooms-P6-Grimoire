@@ -1,21 +1,36 @@
 const multer = require("multer");
+const path = require("path");
 const sharp = require("sharp");
 
-const MIME_TYPES = {
-  "image/jpg": "jpg",
-  "image/jpeg": "jpg",
-  "image/png": "png"
-};
+const storage = multer.memoryStorage();
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "images");
-  },
-  filename: (req, file, callback) => {
-    const name = file.originalname.split(" ").join("_");
-    const extension = MIME_TYPES[file.mimetype];
-    callback(null, name + Date.now() + "." + extension);
+exports.upload = multer({ storage }).single("image");
+
+exports.convert = async (req, res, next) => {
+  if (!req.file) {
+    return next();
   }
-});
 
-module.exports = multer({ storage: storage }).single("image");
+  const destination = path.join(__dirname, "../images");
+  const fileName =
+    req.file.originalname
+      .split(" ")
+      .join("_")
+      .split(".")
+      .slice(0, -1)
+      .join(".") +
+    Date.now() +
+    ".webp";
+
+  try {
+    await sharp(req.file.buffer)
+      .resize(463)
+      .webp({ quality: 75 })
+      .toFile(destination + fileName);
+
+    req.file.filename = fileName;
+    next();
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};

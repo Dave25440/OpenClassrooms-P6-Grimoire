@@ -31,7 +31,7 @@ exports.convert = async (req, res, next) => {
 
   try {
     await sharp(req.file.buffer)
-      .resize(405)
+      .resize(442, 568)
       .webp({ quality: 75 })
       .toFile(filePath);
 

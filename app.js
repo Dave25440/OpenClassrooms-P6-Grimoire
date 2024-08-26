@@ -9,8 +9,8 @@ mongoose
   .connect(
     "mongodb+srv://dave25440:grimoire@cluster0.t47em.mongodb.net/grimoire?retryWrites=true&w=majority&appName=Cluster0"
   )
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
+  .then(() => console.log("Connexion à MongoDB réussie"))
+  .catch(() => console.log("Connexion à MongoDB échouée"));
 
 const app = express();
 

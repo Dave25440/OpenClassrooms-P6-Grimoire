@@ -9,6 +9,7 @@ const bookCtrl = require("../controllers/book");
 router.post("/", auth, multer.upload, multer.convert, bookCtrl.createBook);
 router.put("/:id", auth, multer.upload, multer.convert, bookCtrl.modifyBook);
 router.delete("/:id", auth, bookCtrl.deleteBook);
+router.get("/bestrating", bookCtrl.getBestBooks);
 router.get("/:id", bookCtrl.getOneBook);
 router.get("/", bookCtrl.getAllBooks);
 

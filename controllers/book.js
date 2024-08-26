@@ -22,7 +22,22 @@ exports.createBook = (req, res, next) => {
 
 exports.rateBook = (req, res, next) => {
   Book.findOne({ _id: req.params.id })
-    .then((book) => {})
+    .then((book) => {
+      const alreadyRated = book.ratings.find(
+        (rating) => rating.userId === req.auth.userId
+      );
+
+      if (alreadyRated) {
+        res.status(403).json({ message: "Livre déjà noté" });
+      } else {
+        book.ratings.push({ userId: req.auth.userId, grade: req.body.rating });
+
+        book
+          .save()
+          .then((book) => res.status(200).json(book))
+          .catch((error) => res.status(400).json({ error }));
+      }
+    })
     .catch((error) => res.status(404).json({ error }));
 };
 

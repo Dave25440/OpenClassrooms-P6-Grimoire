@@ -32,6 +32,13 @@ exports.rateBook = (req, res, next) => {
       } else {
         book.ratings.push({ userId: req.auth.userId, grade: req.body.rating });
 
+        const ratingsSum = book.ratings.reduce(
+          (acc, rating) => acc + rating.grade,
+          0
+        );
+
+        book.averageRating = ratingsSum / book.ratings.length;
+
         book
           .save()
           .then((book) => res.status(200).json(book))

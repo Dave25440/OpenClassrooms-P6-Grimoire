@@ -12,6 +12,12 @@ exports.convert = async (req, res, next) => {
     return next();
   }
 
+  const fileType = req.file.mimetype;
+
+  if (!fileType.startsWith("image/")) {
+    return res.status(400).json({ message: "Fichier image attendu" });
+  }
+
   const destination = path.join(__dirname, "../images");
 
   if (!fs.existsSync(destination)) {
